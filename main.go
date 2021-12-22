@@ -11,10 +11,16 @@ func main() {
 
 	// fmt.Println(db.ExistsTable("users"))
 	// db.CreateTable(models.UserSchema, "users")
-	user := models.CreateUser("Erick", "123", "erick@email.com")
-	fmt.Println(user)
-	// db.TruncateTable("users")
+	// user := models.CreateUser("Alexander", "456", "alexander@email.com")
+	// fmt.Println(user)
 
+	// users := models.ListUsers()
+	// fmt.Println(users)
+
+	user := models.GetUser(1)
+	fmt.Println(user)
+
+	// db.TruncateTable("users")
 	db.Close()
 	// db.Ping()
 }
