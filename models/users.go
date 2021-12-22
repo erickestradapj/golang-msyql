@@ -33,7 +33,7 @@ func NewUser(username, password, email string) *User {
 /* ===== CREATE USER AND INSERT IN DB ===== */
 func CreateUser(username, password, email string) *User {
 	user := NewUser(username, password, email)
-	user.insert()
+	user.Save()
 
 	return user
 }
@@ -72,4 +72,25 @@ func GetUser(id int) *User {
 	}
 
 	return user
+}
+
+/* ===== UPDATE ROW===== */
+func (user *User) update() {
+	sql := "UPDATE users SET username=?, password=?, email=? WHERE id=?"
+	db.Exec(sql, user.Username, user.Password, user.Email, user.Id)
+}
+
+/* ===== SAVE OR EDIT ROW ===== */
+func (user *User) Save() {
+	if user.Id == 0 {
+		user.insert()
+	} else {
+		user.update()
+	}
+}
+
+/* ===== DELETE ROW ===== */
+func (user *User) Delete() {
+	sql := "DELETE FROM users WHERE id=?"
+	db.Exec(sql, user.Id)
 }
